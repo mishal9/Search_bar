@@ -38,6 +38,7 @@ def init():
 @cross_origin()
 def search():
     artist = request.args.get('artist').title()
+    print("Getting request for ",artist)
     # get page from query params or default to first page
     page = request.args.get('page') if request.args.get('page') else 1
     
@@ -52,7 +53,7 @@ def search():
     
     prefix = ' '.join(split_words[:-1])
 
-    suggestions = root.query(artist)
+    suggestions = list(root.query(artist))
     
     full_suggestions = []
 
@@ -66,6 +67,8 @@ def search():
         })
         indx = indx+1
 
+    del indx
+
     sorted_suggestions = sorted(full_suggestions, key=lambda k: k['rank'], reverse=True)
 
     # get pager object for specified page
@@ -74,7 +77,7 @@ def search():
     # get page of items from suggestions
     pageOfItems = sorted_suggestions[pager['startIndex']: pager['endIndex']+1]
 
-    resp = jsonify({'pager':pager, 'pageOfItems': pageOfItems})
+    resp = jsonify({'pager': pager, 'pageOfItems': pageOfItems})
     resp.headers.add("Access-Control-Allow-Headers", "*")
     resp.status_code = 200
     return resp
