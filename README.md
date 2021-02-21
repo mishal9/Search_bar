@@ -18,4 +18,6 @@ Search Application to find artists: https://search-flask-app.herokuapp.com/
 3. Trie structure for storage
 4. Heroku for deployment 
 
+## DEMO
 
+![](demo/demo.gif)
