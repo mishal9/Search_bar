@@ -4,6 +4,7 @@ Search Application to find artists: https://search-flask-app.herokuapp.com/
 ## How to run locally
 
 1. Clone this repository using the command: `git clone https://github.com/mishal9/Search_bar.git`.
+2. Run `cd Search_bar`
 2. Install dependencies with pip: `sudo pip install -r requirements.txt`.
 3. Run the app: `python server.py` to start the server. 
 4. Enter `http://localhost:5000/` to visit the search page.
