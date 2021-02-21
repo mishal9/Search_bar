@@ -5,7 +5,7 @@ from pagination import paginate
 import json 
 import time 
 
-app = Flask(__name__, static_folder='client/build', static_url_path='/')
+app = Flask(__name__, static_folder='client/build', static_url_path='')
 
 CORS(app)
 
@@ -28,7 +28,7 @@ print("Time in loading words: ",end - start)
 
 del words
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 @cross_origin()
 def init():
     return app.send_static_file('index.html')
