@@ -46,7 +46,9 @@ class Trie(object):
         # Mark the end of a word
         node.is_end = True
 
-        node.list.append(whole)
+        # do not add if start with same prefix; adding probable words
+        if word[:4] != whole[:4]:
+            node.list.append(whole)
 
         # Increment the weight to indicate that we see this word once more
         node.weight += 1
@@ -88,6 +90,8 @@ class Trie(object):
         
         # Traverse the trie to get all candidates
         self.dfs(node, x[:-1])
+
+        print(sorted(self.output, key=lambda x: x[1], reverse=True))
 
         # Sort the results in reverse order and return
         return sorted(self.output, key=lambda x: x[1], reverse=True)

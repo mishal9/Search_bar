@@ -18,12 +18,12 @@ with open('data/fake_band_names_mit.txt') as f:
 print('Loading words')
 start = time.time()
 for word in words:
+    word = word.rstrip('\n').strip()
     t = re.sub(' +', ' ', word)
     root.insert(t, t)
     tokens = t.split(' ')
     for token in tokens:
         root.insert(token, t)
-    word.rstrip('\n')
 
     
 end = time.time()
@@ -42,18 +42,13 @@ def init():
 @cross_origin()
 def search():
     artist = request.args.get('artist').title()
-    print("Getting request for ",artist)
     # get page from query params or default to first page
     page = request.args.get('page') if request.args.get('page') else 1
     
     # search by artist name
     split_words = artist.split()
-    if len(split_words) == 0:
-        resp = jsonify([])
-        resp.status_code = 200
-        return resp
         
-    last_word = split_words[-1]
+    last_word = split_words[1:]
     
     prefix = ' '.join(split_words[:-1])
 
