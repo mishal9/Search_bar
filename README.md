@@ -1,5 +1,5 @@
 # Search_bar
-Search Application to find artists
+Search Application to find artists: https://search-flask-app.herokuapp.com/
 
 ## How to run locally
 
