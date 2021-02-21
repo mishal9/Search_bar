@@ -145,3 +145,5 @@ yarn-error.log*
 /.changelog
 .npm/
 yarn.lock
+
+package-lock.json
