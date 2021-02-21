@@ -62,7 +62,7 @@ class Trie(object):
         if node.is_end:
             self.output.append((prefix + node.char, node.weight))
             for word in node.list:
-                self.output.append((word, node.weight))
+                self.output.append((word, 0))
         
         for child in node.children.values():
             self.dfs(child, prefix + node.char)
