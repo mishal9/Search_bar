@@ -1,3 +1,4 @@
+import re
 class TrieNode:
     """A node in the trie structure"""
 
@@ -8,11 +9,11 @@ class TrieNode:
         # whether this can be the end of a word
         self.is_end = False
 
-        # a weight indicating how many times a word is inserted
+        # a counter indicating how many times a word is inserted
         # (if this node's is_end is True)
-        self.weight = 0
-
+        self.counter = 0
         self.list = []
+
 
         # a dictionary of child nodes
         # keys are characters, values are nodes
@@ -20,6 +21,7 @@ class TrieNode:
 
 class Trie(object):
     """The trie object"""
+
     def __init__(self):
         """
         The trie has at least the root node.
@@ -30,7 +32,7 @@ class Trie(object):
     def insert(self, word, whole):
         """Insert a word into the trie"""
         node = self.root
-        # 'data/fake_band_names_mit.txt'
+        
         # Loop through each character in the word
         # Check if there is no child containing the character, create a new child for the current node
         for char in word:
@@ -42,16 +44,13 @@ class Trie(object):
                 new_node = TrieNode(char)
                 node.children[char] = new_node
                 node = new_node
-                
+        
         # Mark the end of a word
         node.is_end = True
+        node.list.append(whole)
 
-        # do not add if start with same prefix; adding probable words
-        if word[:4] != whole[:4]:
-            node.list.append(whole)
-
-        # Increment the weight to indicate that we see this word once more
-        node.weight += 1
+        # Increment the counter to indicate that we see this word once more
+        node.counter += 1
         
     def dfs(self, node, prefix):
         """Depth-first traversal of the trie
@@ -62,14 +61,11 @@ class Trie(object):
                 word while traversing the trie
         """
         if node.is_end:
-            self.output.add((prefix + node.char, node.weight))
+            self.output.append((prefix + node.char, node.counter))
 
-        '''
-        Add probable words based on keyword
-        '''
         for word in node.list:
-            self.output.add((word, 0))
-        
+            self.output.append((word, 0))
+
         for child in node.children.values():
             self.dfs(child, prefix + node.char)
         
@@ -80,7 +76,7 @@ class Trie(object):
         """
         # Use a variable within the class to keep all possible outputs
         # As there can be more than one word with such prefix
-        self.output = set()
+        self.output = []
         node = self.root
         
         # Check if the prefix is in the trie
@@ -94,27 +90,20 @@ class Trie(object):
         # Traverse the trie to get all candidates
         self.dfs(node, x[:-1])
 
-        print(sorted(self.output, key=lambda x: x[1], reverse=True))
-
         # Sort the results in reverse order and return
         return sorted(self.output, key=lambda x: x[1], reverse=True)
 
 
+t = Trie()
 
-### TEST
-'''
-# Setting up the Trie
-root = Trie()
+t.insert("Hang       Newsletters  Both  Emporium  Damnation  Chemise  Loudest  Acceptability  Mammas  Kudo Sandman \n","Hang  Newsletters  Both  Emporium  Damnation  Chemise  Loudest  Acceptability  Mammas  Kudo Sandman \n")
+s = "Hang  Newsletters  Both  Emporium  Damnation  Chemise  Loudest  Acceptability  Mammas  Kudo Sandman \n"
+w = re.sub(' +', ' ', s)
+t.insert(w, w)
+for st in re.sub(' +', ' ', s).split(' '):
+    print(st)
+    t.insert(st, w)
 
-string = 'Hang Newsletters Both Emporium Damnation Chemise Loudest Acceptability Mammas Kudo Sandman'
+print(t.query("Hang N"))
 
-tokens = string.split(' ')
-for token in tokens:
-    root.insert(token, string)
-root.insert(string, string)
 
-#root.insert('Hang Newsletters Both Emporium Damnation Chemise Loudest Acceptability Mammas Kudo Sandman')
-
-print(root.query('hang n'.title()))
-print(root.query('Emporium'))
-'''

@@ -4,6 +4,7 @@ from store import Trie
 from pagination import paginate
 import json 
 import time 
+import re
 
 app = Flask(__name__, static_folder='client/build', static_url_path='')
 
@@ -17,14 +18,21 @@ with open('data/fake_band_names_mit.txt') as f:
 print('Loading words')
 start = time.time()
 for word in words:
+    # stripping tailing whitespaces
+    word = word.rstrip('\n').strip()
+    # convert any multiple spaces in string to single space
+    word = re.sub(' +', ' ', word)
+    # insert into Trie along with the entire word sequence
+    root.insert(word, word)
+    # insert tokens into Trie along with the entire word sequence
     tokens = word.split(' ')
     for token in tokens:
         root.insert(token, word)
-    word.rstrip('\n')
+
     
 end = time.time()
 
-print("Time in loading words: ",end - start)
+print("Time in loading words: ",end - start, "s")
 
 del words
 
@@ -38,18 +46,13 @@ def init():
 @cross_origin()
 def search():
     artist = request.args.get('artist').title()
-    print("Getting request for ",artist)
     # get page from query params or default to first page
     page = request.args.get('page') if request.args.get('page') else 1
     
     # search by artist name
     split_words = artist.split()
-    if len(split_words) == 0:
-        resp = jsonify([])
-        resp.status_code = 200
-        return resp
         
-    last_word = split_words[-1]
+    last_word = split_words[1:]
     
     prefix = ' '.join(split_words[:-1])
 
