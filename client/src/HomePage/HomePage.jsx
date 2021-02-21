@@ -59,7 +59,7 @@ function HomePage()  {
             </div>
             <div className="card-footer pb-0 pt-3">
                 {pager.pages && pager.pages.length === 0 &&
-                    <b>No results found</b>
+                    <p>No results found</p>
                 }     
                 {pager.pages && pager.pages.length > 0 &&
                     <ul className="pagination">
