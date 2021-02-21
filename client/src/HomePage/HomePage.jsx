@@ -16,14 +16,15 @@ function HomePage()  {
     function submitHandler() {        
         const params = new URLSearchParams(location.search);
         const page = parseInt(params.get('page')) || 1;
-        
+        if(artist.length > 0){
         fetch(`https://search-flask-app.herokuapp.com/api/query?artist=${artist}&page=${page}`, { method: 'GET' })
             .then(response => response.json())
             .then(({pager, pageOfItems}) => {
                 setPageOfItems(pageOfItems);
                 setPager(pager);
         });
-        
+    }
+
     };
 
     return (            
