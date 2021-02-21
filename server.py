@@ -28,7 +28,7 @@ print("Time in loading words: ",end - start)
 
 del words
 
-app.route('/', methods=['GET'])
+@app.route('/', methods=['GET'])
 @cross_origin()
 def init():
     return app.send_static_file('index.html')
