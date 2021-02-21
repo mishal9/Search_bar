@@ -43,8 +43,6 @@ def paginate(totalItems, currentPage=1, pageSize=10, maxPages=10):
     for i in range(startPage, endPage+1):
         pages.append(i)
         
-    # pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i)
-
     # return object with all pager properties required by the view
     res = {}
     res['totalItems'] = int(totalItems)

@@ -67,6 +67,8 @@ def search():
         })
         indx = indx+1
 
+    del indx
+
     sorted_suggestions = sorted(full_suggestions, key=lambda k: k['rank'], reverse=True)
 
     # get pager object for specified page
@@ -75,7 +77,7 @@ def search():
     # get page of items from suggestions
     pageOfItems = sorted_suggestions[pager['startIndex']: pager['endIndex']+1]
 
-    resp = jsonify({'pager':pager, 'pageOfItems': pageOfItems})
+    resp = jsonify({'pager': pager, 'pageOfItems': pageOfItems})
     resp.headers.add("Access-Control-Allow-Headers", "*")
     resp.status_code = 200
     return resp
