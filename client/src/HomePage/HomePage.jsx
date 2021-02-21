@@ -23,6 +23,7 @@ function HomePage()  {
                 setPageOfItems(pageOfItems);
                 setPager(pager);
         });
+        
     };
 
     return (            
