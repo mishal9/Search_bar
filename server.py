@@ -53,7 +53,9 @@ def search():
     
     prefix = ' '.join(split_words[:-1])
 
-    suggestions = root.query(artist)
+    suggestions = list(root.query(artist))
+
+    print(suggestions)
     
     full_suggestions = []
 
