@@ -4,6 +4,7 @@ from store import Trie
 from pagination import paginate
 import json 
 import time 
+import re
 
 app = Flask(__name__, static_folder='client/build', static_url_path='')
 
@@ -17,10 +18,13 @@ with open('data/fake_band_names_mit.txt') as f:
 print('Loading words')
 start = time.time()
 for word in words:
-    tokens = word.split(' ')
+    t = re.sub(' +', ' ', word)
+    root.insert(t, t)
+    tokens = t.split(' ')
     for token in tokens:
-        root.insert(token, word)
+        root.insert(token, t)
     word.rstrip('\n')
+
     
 end = time.time()
 
