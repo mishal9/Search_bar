@@ -38,6 +38,7 @@ def init():
 @cross_origin()
 def search():
     artist = request.args.get('artist').title()
+    print("Getting request for ",artist)
     # get page from query params or default to first page
     page = request.args.get('page') if request.args.get('page') else 1
     
