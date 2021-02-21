@@ -21,3 +21,7 @@ Search Application to find artists: https://search-flask-app.herokuapp.com/
 ## DEMO
 
 ![](demo/demo.gif)
+
+## Notes
+
+You need to double-click to paginate through results.
