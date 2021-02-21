@@ -64,6 +64,9 @@ class Trie(object):
         if node.is_end:
             self.output.add((prefix + node.char, node.weight))
 
+        '''
+        Add probable words based on keyword
+        '''
         for word in node.list:
             self.output.add((word, 0))
         
@@ -99,6 +102,7 @@ class Trie(object):
 
 
 ### TEST
+'''
 # Setting up the Trie
 root = Trie()
 
@@ -113,4 +117,4 @@ root.insert(string, string)
 
 print(root.query('hang n'.title()))
 print(root.query('Emporium'))
-
+'''

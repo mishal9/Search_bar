@@ -18,17 +18,21 @@ with open('data/fake_band_names_mit.txt') as f:
 print('Loading words')
 start = time.time()
 for word in words:
+    # stripping tailing whitespaces
     word = word.rstrip('\n').strip()
-    t = re.sub(' +', ' ', word)
-    root.insert(t, t)
-    tokens = t.split(' ')
+    # convert any multiple spaces in string to single space
+    word = re.sub(' +', ' ', word)
+    # insert into Trie along with the entire word sequence
+    root.insert(word, word)
+    # insert tokens into Trie along with the entire word sequence
+    tokens = word.split(' ')
     for token in tokens:
-        root.insert(token, t)
+        root.insert(token, word)
 
     
 end = time.time()
 
-print("Time in loading words: ",end - start)
+print("Time in loading words: ",end - start, "s")
 
 del words
 
