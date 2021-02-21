@@ -33,14 +33,17 @@ function HomePage()  {
     };
 
     return (     
-        <div>    
+        <div className="d-flex align-items-center justify-content-center">    
             
         <div className="card text-center m-3">
         
             <div className="card-body">
-            
+
+            <div className="input-group mb-3">
+
             <input id="name" 
                     type="text" 
+                    className="form-control"
                     autoComplete="off"
                     placeholder="Search an artist" 
                     onChange={changeHandler} 
@@ -48,10 +51,11 @@ function HomePage()  {
                     required>
             </input>
                     
-            <button type="submit" onClick={submitHandler}>SEARCH</button>
-            
-                <br/>
-                <br/>
+            <button type="submit" 
+                    className="btn btn-primary"
+                    onClick={submitHandler}>SEARCH</button>
+            </div>
+
                 {pageOfItems && pageOfItems.map(item =>
                     <div key={item.id}>{item.artistName}
                     </div>
