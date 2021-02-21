@@ -17,7 +17,7 @@ function HomePage()  {
         const params = new URLSearchParams(location.search);
         const page = parseInt(params.get('page')) || 1;
         
-        fetch(`http://127.0.0.1:5000/api/query?artist=${artist}&page=${page}`, { method: 'GET' })
+        fetch(`https://search-flask-app.herokuapp.com/api/query?artist=${artist}&page=${page}`, { method: 'GET' })
             .then(response => response.json())
             .then(({pager, pageOfItems}) => {
                 setPageOfItems(pageOfItems);
