@@ -15,7 +15,7 @@ function HomePage()  {
         const params = new URLSearchParams(location.search);
         const page = parseInt(params.get('page')) || 1;
         if(artist.trim().length > 0){
-            const response = await fetch(`https://search-flask-app.herokuapp/api/query?artist=${artist.trim()}&page=${page}`, 
+            const response = await fetch(`https://search-flask-app.herokuapp.com/api/query?artist=${artist.trim()}&page=${page}`, 
             {
                 method: 'GET',
                 headers: {
